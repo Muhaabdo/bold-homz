@@ -14,7 +14,7 @@
   if (sessionStorage.getItem(STORAGE_KEY) === "1") return;
 
   var CFG = window.SITE_CONFIG || {};
-  var privacyUrl = CFG.privacyUrl || "privacy-policy.html";
+  var privacyUrl = CFG.privacyUrl || "/privacy-policy";
 
   function build() {
     var wrap = document.createElement("div");

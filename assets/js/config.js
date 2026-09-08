@@ -23,5 +23,5 @@ window.SITE_CONFIG = {
   },
 
   /* رابط سياسة الخصوصية */
-  privacyUrl: "privacy-policy.html"
+  privacyUrl: "/privacy-policy"
 };
