@@ -190,6 +190,13 @@ section[id]{ scroll-margin-top:calc(var(--header-h) + 14px); }
 @media (max-width:640px){
   .hero{ min-height:0; padding:32px 0 150px; }
   .hero-photo-tag{ display:none; }
+  .hero-badge{ font-size:.78rem; padding:6px 14px; margin-bottom:14px; }
+  .hero h1{ font-size:clamp(1.6rem,7vw,2.1rem); margin-bottom:10px; }
+  .hero .lead{ font-size:.94rem; margin-bottom:20px; }
+  .hero-ctas{ gap:10px; margin-bottom:22px; }
+  .hero-trust{ gap:10px 16px; }
+  .hero-trust .item{ font-size:.8rem; gap:6px; }
+  .hero-trust svg{ width:16px; height:16px; }
 }
 
 /* ---------- project / unit cards ---------- */
