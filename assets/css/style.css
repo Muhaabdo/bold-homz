@@ -31,6 +31,7 @@
 /* project accent overrides */
 body[data-page="la-vista"]{ --accent:#c9a24b; --accent-light:#e4c988; }
 body[data-page="hyde-park"]{ --accent:#1f7a5c; --accent-light:#57a889; }
+body[data-page="hyde-park-projects"]{ --accent:#1f7a5c; --accent-light:#57a889; }
 body[data-page="mountain-view"]{ --accent:#b56a3c; --accent-light:#d99a6c; }
 body[data-page="home"]{ --accent:#c9a24b; --accent-light:#e4c988; }
 
@@ -196,6 +197,19 @@ body[data-page="la-vista"] .hero-content{ margin-top:72px; }
 .hero-highlights .hh-price{ font-size:1.5rem; font-weight:800; color:#fff; margin-top:8px; }
 .hero-highlights .hh-price b{ color:var(--gold-light); font-size:1.9rem; }
 
+.hero-price-panel{
+  display:flex; gap:14px; align-items:stretch; margin-bottom:26px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(228,201,136,.35);
+  border-radius:16px; padding:20px 24px;
+}
+.hero-price-panel .hpp-col{ flex:1; min-width:0; }
+.hero-price-panel .hpp-col + .hpp-col{ border-inline-start:1px solid rgba(255,255,255,.14); padding-inline-start:20px; }
+.hero-price-panel .hpp-label{ font-size:.85rem; font-weight:700; margin-bottom:8px; }
+.hero-price-panel .hpp-col:first-child .hpp-label{ color:var(--gold-light); }
+.hero-price-panel .hpp-col:last-child .hpp-label{ color:#3ddc84; }
+.hero-price-panel .hpp-value{ font-size:1.8rem; font-weight:800; color:#fff; }
+.hero-price-panel .hpp-value span{ font-size:1rem; color:#d9dce3; font-weight:700; }
+
 .hero-scroll-down{
   position:absolute; z-index:2; bottom:22px; left:50%; transform:translateX(-50%);
   display:flex; align-items:center; justify-content:center;
@@ -225,6 +239,10 @@ body[data-page="la-vista"] .hero-content{ margin-top:72px; }
   .hero-highlights .hh-item svg{ width:16px; height:16px; }
   .hero-highlights .hh-price{ font-size:1.2rem; margin-top:4px; }
   .hero-highlights .hh-price b{ font-size:1.45rem; }
+  .hero-price-panel{ flex-direction:column; gap:12px; padding:16px 18px; margin-bottom:18px; }
+  .hero-price-panel .hpp-col + .hpp-col{ border-inline-start:none; padding-inline-start:0; border-top:1px solid rgba(255,255,255,.14); padding-top:12px; }
+  .hero-price-panel .hpp-label{ font-size:.78rem; margin-bottom:5px; }
+  .hero-price-panel .hpp-value{ font-size:1.35rem; }
 }
 
 /* ---------- project / unit cards ---------- */
@@ -304,6 +322,21 @@ body[data-page="la-vista"] .hero-content{ margin-top:72px; }
 .stat b{ display:block; font-size:1.5rem; color:var(--navy); font-weight:800; }
 .stat span{ font-size:.8rem; color:var(--muted); font-weight:600; }
 @media (max-width:900px){ .about-grid{ grid-template-columns:1fr; } .about-visual{ min-height:220px; } }
+
+/* ---------- developer stat / reason grid ---------- */
+.dev-stat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:30px; }
+@media (max-width:900px){ .dev-stat-grid{ grid-template-columns:repeat(2,1fr); } }
+
+.reason-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:8px; }
+.reason-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:26px 22px; text-align:center;
+}
+.reason-card i{ font-size:1.6rem; color:var(--accent); margin-bottom:14px; }
+.reason-card h4{ font-size:1rem; color:var(--navy); margin-bottom:8px; }
+.reason-card p{ font-size:.86rem; color:var(--muted); }
+@media (max-width:900px){ .reason-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px){ .reason-grid{ grid-template-columns:1fr; } }
 
 /* ---------- gallery ---------- */
 .gallery-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
