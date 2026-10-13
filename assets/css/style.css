@@ -280,6 +280,17 @@ body[data-page="la-vista"] .hero-content{ margin-top:72px; }
   0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(15,81,50,.55); }
   50%{ transform:scale(1.07); box-shadow:0 0 0 7px rgba(15,81,50,0); }
 }
+.p-card-badge-soon{
+  position:absolute; top:12px; inset-inline-end:12px; z-index:2;
+  background:var(--navy); color:var(--gold-light); font-size:.72rem; font-weight:800;
+  padding:5px 12px; border-radius:999px; border:1px solid var(--gold); letter-spacing:.3px;
+}
+.p-soon-box{
+  display:flex; flex-direction:column; gap:3px; text-align:center;
+  background:var(--cream); border:1px dashed var(--gold); border-radius:12px;
+  padding:12px 14px; font-size:.82rem; color:var(--muted); font-weight:600;
+}
+.p-soon-box b{ color:var(--navy); font-size:.95rem; font-weight:800; }
 .p-card-body{ padding:22px 22px 24px; display:flex; flex-direction:column; gap:14px; flex:1; }
 .p-card-title{ font-size:1.15rem; font-weight:800; color:var(--navy); }
 .p-card-title em{ font-style:normal; color:var(--gold); }
