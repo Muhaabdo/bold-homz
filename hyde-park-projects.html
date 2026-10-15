@@ -24,6 +24,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="assets/css/style.css?v=7">
+<style>
+  /* hero بعد شيل عمود القسط: عمود سعر واحد بعرض محتواه */
+  .hero-price-panel{ display:inline-flex; }
+  .hero-price-panel .hpp-col:only-child .hpp-label{ color:var(--gold-light); }
+
+  /* ---------- بار أقسام الصفحة (sticky + scrollspy) ---------- */
+  .sec-nav{
+    position:sticky; top:var(--header-h); z-index:40;
+    background:rgba(255,255,255,.96); backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(15,27,45,.08);
+    box-shadow:0 8px 20px -16px rgba(15,27,45,.45);
+    transition:top .35s ease;
+  }
+  .site-header.nav-hidden ~ .sec-nav{ top:0; }
+  section[id]{ scroll-margin-top:calc(var(--header-h) + 72px); }
+  .sec-nav-list{
+    display:flex; gap:8px; padding:10px 0;
+    overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  }
+  .sec-nav-list::-webkit-scrollbar{ display:none; }
+  .sec-nav-list li{ flex:none; }
+  .sec-nav-list a{
+    display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+    padding:9px 18px; border-radius:999px;
+    font-weight:700; font-size:.92rem; color:var(--navy);
+    background:var(--cream); border:1px solid transparent;
+    transition:background .2s, color .2s, border-color .2s;
+  }
+  .sec-nav-list a i{ font-size:.85rem; color:var(--accent); transition:color .2s; }
+  .sec-nav-list a:hover{ border-color:var(--accent); }
+  .sec-nav-list a.is-active{ background:var(--accent); color:#fff; }
+  .sec-nav-list a.is-active i{ color:#fff; }
+  .sec-nav-progress{
+    position:absolute; bottom:-1px; inset-inline-start:0; height:3px; width:0;
+    background:linear-gradient(90deg,var(--accent),var(--gold));
+    transition:width .1s linear;
+  }
+  @media (max-width:640px){
+    .sec-nav .container{ padding:0; }
+    .sec-nav-list{ gap:6px; padding:8px 16px; }
+    .sec-nav-list a{ padding:8px 14px; font-size:.84rem; gap:6px; }
+  }
+</style>
 </head>
 <body data-page="hyde-park-projects" data-project-name="Hyde Park Projects">
 <!-- Google Tag Manager (noscript) -->
@@ -73,10 +116,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="hpp-label">أسعار تبدأ من</div>
           <div class="hpp-value">6,900,000 <span>جنيه</span></div>
         </div>
-        <div class="hpp-col">
-          <div class="hpp-label">قسط شهري يبدأ من</div>
-          <div class="hpp-value">54,625 <span>جنيه / شهر</span></div>
-        </div>
       </div>
       <div class="hero-ctas">
         <a href="#" data-wa data-wa-msg="مرحباً، أنا مهتم بمعرفة تفاصيل الأسعار وخطط السداد لمشاريع Hyde Park" class="btn btn-whatsapp">
@@ -91,6 +130,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </section>
+
+<nav class="sec-nav" aria-label="أقسام الصفحة">
+  <div class="container">
+    <ul class="sec-nav-list">
+      <li><a href="#projects" class="is-active"><i class="fa-solid fa-building"></i> المشاريع والأسعار</a></li>
+      <li><a href="#about"><i class="fa-solid fa-award"></i> عن المطور</a></li>
+      <li><a href="#gallery"><i class="fa-solid fa-images"></i> معرض الصور</a></li>
+      <li><a href="#budget"><i class="fa-solid fa-wallet"></i> ابعتلنا ميزانيتك</a></li>
+    </ul>
+  </div>
+  <span class="sec-nav-progress" aria-hidden="true"></span>
+</nav>
 
 <section class="section-pad" id="projects">
   <div class="container">
@@ -494,5 +545,74 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="assets/js/config.js?v=1"></script>
 <script src="assets/js/main.js?v=1"></script>
 <script src="assets/js/cookie-notice.js"></script>
+<script>
+/* بار أقسام الصفحة: تحديد السكشن الحالي أثناء السكرول + نقل سلس عند الضغط */
+(function () {
+  var bar = document.querySelector(".sec-nav");
+  if (!bar) return;
+  var list = bar.querySelector(".sec-nav-list");
+  var progress = bar.querySelector(".sec-nav-progress");
+  var header = document.querySelector(".site-header");
+  var links = Array.prototype.slice.call(bar.querySelectorAll('a[href^="#"]'));
+  var sections = links.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+  var current = null;
+  var ticking = false;
+
+  function headerOffset() {
+    return header && !header.classList.contains("nav-hidden") ? header.offsetHeight : 0;
+  }
+
+  function setActive(i) {
+    if (i === current) return;
+    current = i;
+    links.forEach(function (a, j) {
+      a.classList.toggle("is-active", j === i);
+      if (j === i) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+    });
+    // على الموبايل: خلّي الزرار النشط ظاهر جوه البار
+    var a = links[i], lr = a.getBoundingClientRect(), br = list.getBoundingClientRect();
+    if (lr.left < br.left || lr.right > br.right) {
+      list.scrollBy({ left: (lr.left + lr.width / 2) - (br.left + br.width / 2), behavior: "smooth" });
+    }
+  }
+
+  function update() {
+    ticking = false;
+    var line = headerOffset() + bar.offsetHeight + window.innerHeight * 0.25;
+    var idx = 0;
+    sections.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= line) idx = i; });
+    // آخر سكشن قصير: لو وصلنا لآخر الصفحة نفعّله
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) idx = sections.length - 1;
+    setActive(idx);
+
+    var start = sections[0].getBoundingClientRect().top + window.scrollY - line;
+    var end = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = Math.min(Math.max((window.scrollY - start) / Math.max(end - start, 1), 0), 1);
+    progress.style.width = (pct * 100) + "%";
+  }
+
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener("resize", update);
+
+  // capture: يسبق هاندلر main.js العام عشان نحسب ارتفاع البار في الإزاحة (لينكات البار والهيدر)
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var target = document.getElementById(a.getAttribute("href").slice(1));
+    if (!target || sections.indexOf(target) === -1) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var top = target.getBoundingClientRect().top + window.scrollY;
+    // نازل: الهيدر هيستخبى. طالع: الهيدر هيظهر فوق البار
+    var offset = bar.offsetHeight + 12 + (top < window.scrollY ? (header ? header.offsetHeight : 0) : 0);
+    window.scrollTo({ top: Math.max(top - offset, 0), behavior: "smooth" });
+    if (window.history && window.history.replaceState) window.history.replaceState(null, "", a.getAttribute("href"));
+  }, true);
+
+  update();
+})();
+</script>
 </body>
 </html>
