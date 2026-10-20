@@ -33,6 +33,7 @@ body[data-page="la-vista"]{ --accent:#c9a24b; --accent-light:#e4c988; }
 body[data-page="hyde-park"]{ --accent:#1f7a5c; --accent-light:#57a889; }
 body[data-page="hyde-park-projects"]{ --accent:#1f7a5c; --accent-light:#57a889; }
 body[data-page="mountain-view"]{ --accent:#b56a3c; --accent-light:#d99a6c; }
+body[data-page="madinet-masr"]{ --accent:#b3263a; --accent-light:#e0707d; }
 body[data-page="home"]{ --accent:#c9a24b; --accent-light:#e4c988; }
 
 *,*::before,*::after{ box-sizing:border-box; }

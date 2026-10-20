@@ -12,7 +12,8 @@ window.SITE_CONFIG = {
     "la-vista":          "+20 106 868 6531",
     "hyde-park":         "+20 101 081 9579",
     "hyde-park-projects":"+20 101 081 9579",
-    "mountain-view":     "+20 121 393 4972"
+    "mountain-view":     "+20 121 393 4972",
+    "madinet-masr":      "+20 101 081 9579"
   },
 
   /* رقم الواتساب لكل صفحة — أرقام دولية بدون + أو مسافات أو أصفار في البداية (فورمات wa.me) */
@@ -21,7 +22,8 @@ window.SITE_CONFIG = {
     "la-vista":          "201068686531",
     "hyde-park":         "201010819579",
     "hyde-park-projects":"201010819579",
-    "mountain-view":     "201213934972"
+    "mountain-view":     "201213934972",
+    "madinet-masr":      "201010819579"
   },
 
   /* رابط سياسة الخصوصية */
